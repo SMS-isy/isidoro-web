@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Matteo Isidoro</title>
+    <style>
+      :root {
+        --neon-green: #00ff41;
+        --bg-black: #0a0a0a;
+        --dark-green: rgba(0, 255, 65, 0.1);
+      }
+
+      body {
+        background-color: var(--bg-black);
+        color: var(--neon-green);
+        font-family: "Courier New", Courier, monospace;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        border: 1px solid var(--neon-green);
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        position: relative;
+      }
+
+      /* Effetto Scanline */
+      body::before {
+        content: " ";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background:
+          linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+          linear-gradient(
+            90deg,
+            rgba(255, 0, 0, 0.03),
+            rgba(0, 255, 0, 0.01),
+            rgba(0, 0, 255, 0.03)
+          );
+        z-index: 10;
+        background-size:
+          100% 2px,
+          3px 100%;
+        pointer-events: none;
+      }
+
+      h1 {
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        border-bottom: 2px solid var(--neon-green);
+        padding-bottom: 10px;
+        text-shadow: 0 0 10px var(--neon-green);
+      }
+
+      .directory-info {
+        font-size: 0.9em;
+        margin-bottom: 30px;
+        color: rgba(0, 255, 65, 0.7);
+      }
+
+      .esercizio-container {
+        margin-bottom: 30px;
+        padding: 15px;
+        border: 1px solid rgba(0, 255, 65, 0.3);
+        background: var(--dark-green);
+      }
+
+      .esercizio-titolo {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        display: block;
+        border-bottom: 1px solid var(--neon-green);
+        width: fit-content;
+      }
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+        transition: all 0.3s;
+      }
+
+      /* Stile Link */
+      a {
+        color: var(--neon-green);
+        text-decoration: none;
+        display: block;
+        padding: 5px 10px;
+        border: 1px transparent;
+      }
+
+      a::before {
+        content: "> [EXECUTE] ";
+        font-size: 0.8em;
+        opacity: 0.7;
+      }
+
+      a:hover {
+        background-color: var(--neon-green);
+        color: var(--bg-black);
+        box-shadow: 0 0 10px var(--neon-green);
+        font-weight: bold;
+      }
+
+      footer {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 0.8em;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>INDICE_LAVORI_SCOLASTICI</h1>
+
+    <div class="esercizio-container">
+      <div class="esercizio-titolo">[ES 02]</div>
+      <ul>
+        <li>
+          <a href="a" target="_blank">Funzione prompt()</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="esercizio-container">
+      <div class="esercizio-titolo">[ES 03]</div>
+      <ul>
+        <li>
+          <a href="a" target="_blank">Triangolo</a>
+        </li>
+        <li>
+          <a href="a" target="_blank">Intersezioni</a>
+        </li>
+        <li>
+          <a href="a" target="_blank">Promosso/Bocciato</a>
+        </li>
+      </ul>
+    </div>
+
+    <footer>-- fine della trasmissione --</footer>
+  </body>
+</html>

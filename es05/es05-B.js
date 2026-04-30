@@ -3,8 +3,8 @@
  * Gestione di una Biblioteca di Libri
  * 
  * Obiettivi:
- * - Creare oggetti con proprietà e metodi
- * - Accedere e modificare proprietà
+ * - Creare oggetti con proprietÃ  e metodi
+ * - Accedere e modificare proprietÃ 
  * - Utilizzare metodi per operazioni base
  * - Lavorare con array di oggetti
  * 
@@ -21,7 +21,7 @@ console.log("--- PARTE 1: Creazione Oggetti ---\n");
 
 /**
  * ESERCIZIO 1.1
- * Crea un oggetto 'libro1' con le seguenti proprietà:
+ * Crea un oggetto 'libro1' con le seguenti proprietÃ :
  * - titolo: "Il Signore degli Anelli"
  * - autore: "J.R.R. Tolkien"
  * - anno: 1954
@@ -32,11 +32,16 @@ console.log("--- PARTE 1: Creazione Oggetti ---\n");
 
 // SCRIVI IL TUO CODICE QUI
 const libro1 = {
-  // TODO: Completa le proprietà
+  titolo: "Il Signore degli Anelli",
+  autore: "J.R.R. Tolkien",
+  anno: 1954,
+  genere: "Fantasy",
+  pagine: 1178,
+  disponibile: true
 };
 
 // Test: decommenta per verificare
-// console.log("Libro 1:", libro1);
+console.log("Libro 1:", libro1);
 
 
 /**
@@ -52,12 +57,17 @@ const libro1 = {
 
 // SCRIVI IL TUO CODICE QUI
 const libro2 = {
-  // TODO: Completa le proprietà
+  titolo: "1984",
+  autore: "George Orwell",
+  anno: 1949,
+  genere: "Distopia",
+  pagine: 328,
+  disponibile: false,
 };
 
 
 // ============================================================================
-// PARTE 2: Accesso e Modifica delle Proprietà (10 minuti)
+// PARTE 2: Accesso e Modifica delle ProprietÃ  (10 minuti)
 // ============================================================================
 
 console.log("\n--- PARTE 2: Accesso e Modifica ---\n");
@@ -69,27 +79,27 @@ console.log("\n--- PARTE 2: Accesso e Modifica ---\n");
  */
 
 // SCRIVI IL TUO CODICE QUI
-// TODO: console.log con titolo e autore
+console.log(`Titolo: ${libro1.titolo} - Autore: ${libro1.autore}`);
 
 
 /**
  * ESERCIZIO 2.2
- * Modifica la proprietà 'disponibile' del libro2 da false a true
+ * Modifica la proprietÃ  'disponibile' del libro2 da false a true
  * (qualcuno ha restituito il libro!)
  */
 
 // SCRIVI IL TUO CODICE QUI
-// TODO: Modifica libro2.disponibile
+libro2.disponibile = true;
 
 
 /**
  * ESERCIZIO 2.3
- * Aggiungi una nuova proprietà 'isbn' al libro1
+ * Aggiungi una nuova proprietÃ  'isbn' al libro1
  * Valore: "978-0544003415"
  */
 
 // SCRIVI IL TUO CODICE QUI
-// TODO: Aggiungi proprietà isbn
+libro1.isbn = "978-0544003415";
 
 
 // ============================================================================
@@ -100,9 +110,9 @@ console.log("\n--- PARTE 3: Metodi ---\n");
 
 /**
  * ESERCIZIO 3.1
- * Crea un oggetto 'libro3' con le seguenti proprietà e metodi:
+ * Crea un oggetto 'libro3' con le seguenti proprietÃ  e metodi:
  * 
- * Proprietà:
+ * ProprietÃ :
  * - titolo: "Il Nome della Rosa"
  * - autore: "Umberto Eco"
  * - anno: 1980
@@ -129,24 +139,31 @@ const libro3 = {
   disponibile: true,
   
   getInfo: function() {
-    return ${this.titolo} di ${this.autore} (${this.anno});
+    return `${this.titolo} di ${this.autore} (${this.anno})`;
   },
   
   presta: function() {
-    // TODO: Implementa la logica di prestito
+    if(this.disponibile){
+      this.diponibile = false;
+      console.log("Libro prestato: "+this.titolo);
+    }
+    else{
+      console.log("Libro non disponibile ");
+    }
   },
   
   restituisci: function() {
-    // TODO: Implementa la logica di restituzione
+    this.disponibile = true;
+    console.log("Libro restituito: "+libro3.titolo);
   }
 };
 
 // Test: decommenta per verificare
-// console.log(libro3.getInfo());
-// libro3.presta();
-// libro3.presta(); // Dovrebbe dire che non è disponibile
-// libro3.restituisci();
-// console.log("Libro disponibile?", libro3.disponibile);
+console.log(libro3.getInfo());
+libro3.presta();
+libro3.presta(); // Dovrebbe dire che non Ã¨ disponibile
+libro3.restituisci();
+console.log("Libro disponibile?", libro3.disponibile);
 
 
 // ============================================================================
@@ -161,9 +178,7 @@ console.log("\n--- PARTE 4: Array di Oggetti ---\n");
  */
 
 // SCRIVI IL TUO CODICE QUI
-const biblioteca = [
-  // TODO: Aggiungi i tre libri
-];
+const biblioteca = [libro1, libro2, libro3];
 
 
 /**
@@ -177,13 +192,12 @@ const biblioteca = [
 
 // SCRIVI IL TUO CODICE QUI
 function cercaPerAutore(libri, autore) {
-  // TODO: Implementa la ricerca
-  return [];
+  return libri.filter(libro => libro.autore === autore);
 }
 
 // Test: decommenta per verificare
-// const libriTolkien = cercaPerAutore(biblioteca, "J.R.R. Tolkien");
-// console.log("Libri di Tolkien:", libriTolkien);
+const libriTolkien = cercaPerAutore(biblioteca, "J.R.R. Tolkien");
+console.log("Libri di Tolkien:", libriTolkien);
 
 
 /**
@@ -197,14 +211,19 @@ function cercaPerAutore(libri, autore) {
 
 // SCRIVI IL TUO CODICE QUI
 function libriDisponibili(libri) {
-  // TODO: Filtra i libri disponibili
-  return [];
+  let v = [];
+  for(let i=0; i<biblioteca.length; i++){
+    if(libri[i].disponibile == true){
+      v.push(libri[i]);
+    }
+  }
+  return v;
 }
 
 // Test: decommenta per verificare
-// const disponibili = libriDisponibili(biblioteca);
-// console.log("\nLibri disponibili:");
-// disponibili.forEach(libro => console.log("- " + libro.titolo));
+const disponibili = libriDisponibili(biblioteca);
+console.log("\nLibri disponibili:");
+disponibili.forEach(libro => console.log("- " + libro.titolo));
 
 
 /**
@@ -217,18 +236,24 @@ function libriDisponibili(libri) {
  * "Titolo: [titolo]
  *  Autore: [autore]
  *  Anno: [anno]
- *  Disponibile: [Sì/No]
+ *  Disponibile: [SÃ¬/No]
  *  ---"
  */
 
 // SCRIVI IL TUO CODICE QUI
 function stampaBiblioteca(libri) {
-  // TODO: Cicla sui libri e stampa le informazioni
+  libri.forEach(libro => {
+    console.log(`Titolo: ${libro.titolo}`);
+    console.log(`Autore: ${libro.autore}`);
+    console.log(`Anno: ${libro.anno}`);
+    console.log(`Disponibile: ${libro.disponibile ? "SÃ¬" : "No"}`);
+    console.log("---");
+  });
 }
 
 // Test: decommenta per verificare
-// console.log("\n=== CATALOGO BIBLIOTECA ===");
-// stampaBiblioteca(biblioteca);
+console.log("\n=== CATALOGO BIBLIOTECA ===");
+stampaBiblioteca(biblioteca);
 
 
 // ============================================================================
@@ -267,165 +292,15 @@ function statisticheBiblioteca(libri) {
 }
 
 // Test: decommenta per verificare
-// const stats = statisticheBiblioteca(biblioteca);
-// console.log("\n=== STATISTICHE BIBLIOTECA ===");
-// console.log("Totale libri:", stats.totaleLibri);
-// console.log("Libri disponibili:", stats.libriDisponibili);
-// console.log("Totale pagine:", stats.totalePagine);
-// console.log("Media pagine:", stats.mediaPagine);
-// console.log("Autori:", stats.autori.join(", "));
-
-
-// ============================================================================
-// SOLUZIONI
-// ============================================================================
-
-/**
- * NOTA PER LO STUDENTE:
- * Prova a completare tutti gli esercizi senza guardare le soluzioni!
- * Usa le soluzioni solo per verificare il tuo lavoro o se sei bloccato.
- * 
- * Le soluzioni sono commentate alla fine del file.
- * Scorri in basso per vederle.
- */
+const stats = statisticheBiblioteca(biblioteca);
+console.log("\n=== STATISTICHE BIBLIOTECA ===");
+console.log("Totale libri:", stats.totaleLibri);
+console.log("Libri disponibili:", stats.libriDisponibili);
+console.log("Totale pagine:", stats.totalePagine);
+console.log("Media pagine:", stats.mediaPagine);
+console.log("Autori:", stats.autori.join(", "));
 
 
 console.log("\n=== FINE ESERCITAZIONE 1 ===");
 console.log("Hai completato tutti gli esercizi? Ottimo lavoro!");
 console.log("Passa alla prossima esercitazione per continuare l'apprendimento.\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ============================================================================
-// SOLUZIONI DEGLI ESERCIZI
-// ============================================================================
-
-/*
-
-// SOLUZIONE 1.1
-const libro1 = {
-  titolo: "Il Signore degli Anelli",
-  autore: "J.R.R. Tolkien",
-  anno: 1954,
-  genere: "Fantasy",
-  pagine: 1178,
-  disponibile: true
-};
-
-// SOLUZIONE 1.2
-const libro2 = {
-  titolo: "1984",
-  autore: "George Orwell",
-  anno: 1949,
-  genere: "Distopia",
-  pagine: 328,
-  disponibile: false
-};
-
-// SOLUZIONE 2.1
-console.log(Titolo: ${libro1.titolo} - Autore: ${libro1.autore});
-
-// SOLUZIONE 2.2
-libro2.disponibile = true;
-
-// SOLUZIONE 2.3
-libro1.isbn = "978-0544003415";
-
-// SOLUZIONE 3.1
-const libro3 = {
-  titolo: "Il Nome della Rosa",
-  autore: "Umberto Eco",
-  anno: 1980,
-  pagine: 503,
-  disponibile: true,
-  
-  getInfo: function() {
-    return ${this.titolo} di ${this.autore} (${this.anno});
-  },
-  
-  presta: function() {
-    if (this.disponibile) {
-      this.disponibile = false;
-      console.log(Libro prestato: ${this.titolo});
-    } else {
-      console.log("Libro non disponibile");
-    }
-  },
-  
-  restituisci: function() {
-    this.disponibile = true;
-    console.log(Libro restituito: ${this.titolo});
-  }
-};
-
-// SOLUZIONE 4.1
-const biblioteca = [libro1, libro2, libro3];
-
-// SOLUZIONE 4.2
-function cercaPerAutore(libri, autore) {
-  return libri.filter(libro => libro.autore === autore);
-}
-
-// SOLUZIONE 4.3
-function libriDisponibili(libri) {
-  return libri.filter(libro => libro.disponibile);
-}
-
-// SOLUZIONE 4.4
-function stampaBiblioteca(libri) {
-  libri.forEach(libro => {
-    console.log(Titolo: ${libro.titolo});
-    console.log(Autore: ${libro.autore});
-    console.log(Anno: ${libro.anno});
-    console.log(Disponibile: ${libro.disponibile ? "Sì" : "No"});
-    console.log("---");
-  });
-}
-
-// SOLUZIONE 5.1
-function statisticheBiblioteca(libri) {
-  const totaleLibri = libri.length;
-  const libriDisponibili = libri.filter(l => l.disponibile).length;
-  const totalePagine = libri.reduce((somma, libro) => somma + libro.pagine, 0);
-  const mediaPagine = Math.round(totalePagine / totaleLibri);
-  const autori = [...new Set(libri.map(libro => libro.autore))];
-  
-  return {
-    totaleLibri,
-    libriDisponibili,
-    totalePagine,
-    mediaPagine,
-    autori
-  };
-}
-
-*/

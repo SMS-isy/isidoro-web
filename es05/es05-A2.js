@@ -1,9 +1,9 @@
 const libro = {
-  titolo: "la fattoria degli animali",
-  autore: "george orwell",
-  annoDiPubblicazione: 1945,
+  titolo: "l'inventore di sogni",
+  autore: "Einaudi Scuola",
+  annoDiPubblicazione: 1997,
   genere: "romanzo allegorico e satirico",
-  numeroDiPagina: 144,
+  numeroDiPagina: 128,
 };
 
 for (let key in libro) {

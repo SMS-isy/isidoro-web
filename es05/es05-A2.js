@@ -1,11 +1,11 @@
-const libro = {
-  titolo: "l'inventore di sogni",
-  autore: "Einaudi Scuola",
-  annoDiPubblicazione: 1997,
-  genere: "romanzo allegorico e satirico",
-  numeroDiPagina: 128,
+const book = {
+  titolo: "La Commedia",
+  autore: "Dante Alighieri",
+  annoPubblicazione: 1321,
+  genere: "Poema allegorico",
+  numeroPagine: 798
 };
 
-for (let key in libro) {
-  console.log(${key} -> ${libro[key]});
+for (let key in book) {
+  console.log(`${key} -> ${book[key]}`);
 }

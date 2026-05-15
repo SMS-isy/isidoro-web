@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Testo in Maiuscolo</title>
+</head>
+<body>
+
+  <textarea id="inputText" placeholder="Scrivi qui..."></textarea>
+  <br>
+  <button onclick="convert()">Converti</button>
+  <br>
+  <textarea id="outputText" readonly></textarea>
+
+  <script>
+    function convert() {
+      const testo = document.getElementById('inputText').value;
+      const maiuscolo = testo.toUpperCase();
+      document.getElementById('outputText').value = maiuscolo;
+    }
+  </script>
+
+</body>
+</html>

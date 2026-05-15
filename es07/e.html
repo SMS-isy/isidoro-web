@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tavola Pitagorica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    table {
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: #534AB7;
+      color: #CECBF6;
+      padding: 10px 14px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    td {
+      border: 1px solid #ddd;
+      padding: 10px 14px;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+      background-color: #ffffff;
+    }
+
+    /* Righe dispari evidenziate */
+    tr.evidenziato td {
+      background-color: #EEEDFE;
+      color: #3C3489;
+      font-weight: 500;
+    }
+
+    .legenda {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .legenda-colore {
+      width: 20px;
+      height: 20px;
+      background-color: #EEEDFE;
+      border: 1px solid #AFA9EC;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tavola Pitagorica 10×10</h1>
+  <table id="pitagorica"></table>
+
+  <div class="legenda">
+    <div class="legenda-colore"></div>
+    <span>Righe dispari — <code>class="evidenziato"</code></span>
+  </div>
+
+  <script>const table = document.getElementById('pitagorica');
+
+// --- Riga di intestazione ---
+const thead = document.createElement('tr');
+
+// Cella vuota angolo in alto a sinistra
+const thVuota = document.createElement('th');
+thVuota.textContent = '×';
+thead.appendChild(thVuota);
+
+// Intestazioni colonne 1–10
+for (let c = 1; c <= 10; c++) {
+  const th = document.createElement('th');
+  th.textContent = c;
+  thead.appendChild(th);
+}
+
+table.appendChild(thead);
+
+// --- Righe 1–10 ---
+for (let r = 1; r <= 10; r++) {
+  const tr = document.createElement('tr');
+
+  // Righe dispari → setAttribute aggiunge class="evidenziato"
+  if (r % 2 !== 0) {
+    tr.setAttribute('class', 'evidenziato');
+  }
+
+  // Prima cella = intestazione di riga
+  const th = document.createElement('th');
+  th.textContent = r;
+  tr.appendChild(th);
+
+  // Celle con il prodotto r × c
+  for (let c = 1; c <= 10; c++) {
+    const td = document.createElement('td');
+    td.textContent = r * c;
+    tr.appendChild(td);
+  }
+
+  table.appendChild(tr);
+}
+</script>
+
+</body>
+</html>

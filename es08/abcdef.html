@@ -8,8 +8,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #0f172a; /* Sfondo scuro moderno */
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      /* Sfondo con gradiente profondo stile tech/synthwave */
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -17,194 +18,80 @@
       padding: 40px 20px;
     }
 
+    /* Card stile Glassmorphism (effetto vetro satinato) */
     .card {
-      background: #ffffff;
-      border-radius: 16px; /* Angoli più morbidi */
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       padding: 40px;
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
     }
 
-    h1 { font-size: 24px; color: #0f172a; margin-bottom: 6px; letter-spacing: -0.5px; }
-    .sub { font-size: 13px; color: #64748b; margin-bottom: 24px; }
+    h1 { font-size: 24px; color: #ffffff; margin-bottom: 8px; font-weight: 700; }
+    .sub { font-size: 13px; color: #94a3b8; margin-bottom: 28px; }
 
-    .campo { margin-bottom: 18px; }
+    .campo { margin-bottom: 22px; }
 
     label {
       display: block;
       font-size: 12px;
       font-weight: 600;
-      color: #334155;
-      margin-bottom: 6px;
-      text-transform: uppercase; /* Stile minimal per le etichette */
-      letter-spacing: 0.5px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
     }
 
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 12px 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
       font-size: 14px;
       outline: none;
-      transition: all 0.2s ease;
-      background: #f8fafc;
-      color: #0f172a;
+      transition: all 0.3s ease;
+      background: rgba(15, 23, 42, 0.6);
+      color: #ffffff;
+    }
+    
+    input::placeholder { color: #64748b; }
+
+    /* ES3 — Focus con bagliore Neon Viola/Magenta */
+    input.focus { 
+      background: rgba(15, 23, 42, 0.8); 
+      border-color: #d946ef; 
+      box-shadow: 0 0 15px rgba(217, 70, 239, 0.4); 
     }
 
-    /* ES3 — Nuovo focus stile Ciano/Blu */
-    input.focus { background: #ffffff; border-color: #0066cc; box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15); }
+    /* ES6 — Cambi colore password con effetto bordi Neon sfumati */
+    input#pw.debole { border-color: #ef4444; box-shadow: 0 0 12px rgba(239, 68, 68, 0.3); }
+    input#pw.media  { border-color: #f59e0b; box-shadow: 0 0 12px rgba(245, 158, 11, 0.3); }
+    input#pw.forte  { border-color: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.3); }
 
-    /* ES6 — Nuovi colori sfondo password raffinati */
-    input#pw.debole { background: #fff5f5; border-color: #fa5252; }
-    input#pw.media  { background: #fff9db; border-color: #fab005; }
-    input#pw.forte  { background: #ebfbee; border-color: #40c057; }
-
-    .forza { font-size: 11px; margin-top: 6px; font-weight: 600; text-transform: uppercase; }
-    .forza.debole { color: #fa5252; }
-    .forza.media  { color: #f59f00; }
-    .forza.forte  { color: #2f9e44; }
+    .forza { font-size: 11px; margin-top: 6px; font-weight: 700; letter-spacing: 0.5px; }
+    .forza.debole { color: #ef4444; }
+    .forza.media  { color: #f59e0b; }
+    .forza.forte  { color: #10b981; }
 
     /* ES5 — errore ripeti password */
-    .errore { font-size: 12px; color: #fa5252; margin-top: 6px; font-weight: 5px; display: none; }
+    .errore { font-size: 12px; color: #ef4444; margin-top: 6px; display: none; }
     .errore.visibile { display: block; }
 
-    /* ES4 — testo nascondibile con stile aggiornato toni del blu */
+    /* ES4 — testo nascondibile stile notifica scura */
     .info {
       font-size: 13px;
-      color: #1e3a8a;
-      background: #eff6ff;
-      border-left: 4px solid #0066cc;
-      padding: 12px 14px;
-      border-radius: 4px;
+      color: #f1f5f9;
+      background: rgba(217, 70, 239, 0.15);
+      border-left: 4px solid #d946ef;
+      padding: 12px 16px;
+      border-radius: 6px;
       margin-bottom: 24px;
       cursor: pointer;
-      font-weight: 500;
     }
-    .nota { font-size: 11px; color: #94a3b8; margin-bottom: 16px; font-style: italic; }
+    .nota { font-size: 11px; color: #64748b; margin-bottom: 16px; }
 
     /* ES1 — pulsanti */
-    .pulsanti { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
-
-    button {
-      padding: 11px 20px;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s standard;
-    }
-
-    .btn1 { background: #0066cc; color: #fff; }
-    .btn2 { background: #e2e8f0; color: #334155; }
-    .btn3 { background: #fff5f5; color: #fa5252; border: 1px solid #ffe3e3; }
-
-    /* ES1 — Nuovi effetti hover ed elevazione */
-    .btn1:hover { background: #0052a3; box-shadow: 0 4px 12px rgba(0, 102, 204, 0.25); }
-    .btn2:hover { background: #cbd5e1; color: #0f172a; }
-    .btn3:hover { background: #fa5252; color: #fff; border-color: #fa5252; box-shadow: 0 4px 12px rgba(250, 82, 82, 0.25); }
-  </style>
-</head>
-<body>
-<div class="card">
-  <h1>Registrazione</h1>
-  <p class="sub">ES08 — Gestione eventi JavaScript</p>
-
-  <div class="info" id="msg" onclick="nascondi()">
-    clicca per nascondere questo messaggio.
-  </div>
-  <p class="nota" id="nota"></p>
-
-  <div class="campo">
-    <label for="cf">Codice Fiscale</label>
-    <input type="text" id="cf" placeholder="Es. LGSGO94MDOR22H"
-           oninput="this.value = this.value.toUpperCase()">
-  </div>
-
-  <div class="campo">
-    <label for="pw">Password</label>
-    <input type="password" id="pw" placeholder="Inserisci la password"
-           oninput="controllaPw()">
-    <div class="forza" id="testo_forza"></div>
-  </div>
-
-  <div class="campo">
-    <label for="pw2">Ripeti Password</label>
-    <input type="password" id="pw2" placeholder="Ripeti la password"
-           oninput="controllaRipeti()">
-    <div class="errore" id="msg_errore">Le password non coincidono.</div>
-  </div>
-
-  <div class="pulsanti">
-    <button class="btn1">Registrati</button>
-    <button class="btn2">Annulla</button>
-    <button class="btn3">Reset</button>
-  </div>
-</div>
-
-<script>
-
-  // ── ES3 — focus e blur: cambio sfondo del campo input ──────────────────
-  var campi = document.querySelectorAll('input');
-  for (var i = 0; i < campi.length; i++) {
-    campi[i].addEventListener('focus', function() {
-      this.classList.add('focus');
-    });
-    campi[i].addEventListener('blur', function() {
-      this.classList.remove('focus');
-    });
-  }
-
-  // ── ES4 — nasconde il testo al click ───────────────────────────────────
-  function nascondi() {
-    var el = document.getElementById('msg');
-    el.hidden = true;
-    document.getElementById('nota').textContent = '(messaggio nascosto)';
-  }
-
-  // ── ES5 — controlla se le due password coincidono ──────────────────────
-  function controllaRipeti() {
-    var val1 = document.getElementById('pw').value;
-    var val2 = document.getElementById('pw2').value;
-    var err  = document.getElementById('msg_errore');
-
-    if (val2.length > 0 && val1 !== val2) {
-      err.classList.add('visibile');
-    } else {
-      err.classList.remove('visibile');
-    }
-  }
-
-  // ── ES6 — cambia sfondo password in base ai requisiti ──────────────────
-  // DEBOLE  → meno di 6 caratteri
-  // MEDIA   → 6+ caratteri ma manca maiuscola o numero
-  // FORTE   → 8+ caratteri, almeno una maiuscola e un numero
-  function controllaPw() {
-    var campo = document.getElementById('pw');
-    var label = document.getElementById('testo_forza');
-    var val   = campo.value;
-
-    campo.classList.remove('debole', 'media', 'forte');
-    label.classList.remove('debole', 'media', 'forte');
-
-    if (val.length === 0) {
-      label.textContent = '';
-      return;
-    }
-
-    var haMaiuscola = /[A-Z]/.test(val);
-    var haNumero    = /[0-9]/.test(val);
-
-    if (val.length >= 8 && haMaiuscola && haNumero) {
-      campo.classList.add('forte');
-      label.classList.add('forte');
-      label.textContent = 'password forte';
-    } else if (val.length >= 6) {
-      campo.classList.add('media');
-      label.classList.add('media');
-      label.textContent = 'password media';
-    } else {
-      campo.classList.add('debole
+    .pulsanti { display: flex; gap:

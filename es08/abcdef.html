@@ -1,1 +1,221 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES08 — Eventi JavaScript</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 36px 40px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    h1 { font-size: 22px; color: #1a1a2e; margin-bottom: 8px; }
+    .sub { font-size: 13px; color: #888; margin-bottom: 28px; }
+
+    .campo { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      background: #fff;
+    }
+
+    /* ES3 — focus gestito anche via CSS */
+    input.focus { background: #f3f1ff; border-color: #534AB7; }
+
+    /* ES6 — colori sfondo password */
+    input#pw.debole { background: #ffe5e5; border-color: #e74c3c; }
+    input#pw.media  { background: #fff8e1; border-color: #f39c12; }
+    input#pw.forte  { background: #e8f8f0; border-color: #27ae60; }
+
+    .forza { font-size: 11px; margin-top: 5px; font-weight: 600; }
+    .forza.debole { color: #e74c3c; }
+    .forza.media  { color: #f39c12; }
+    .forza.forte  { color: #27ae60; }
+
+    /* ES5 — errore ripeti password */
+    .errore { font-size: 12px; color: #e74c3c; margin-top: 5px; display: none; }
+    .errore.visibile { display: block; }
+
+    /* ES4 — testo nascondibile */
+    .info {
+      font-size: 13px;
+      color: #555;
+      background: #f3f1ff;
+      border-left: 3px solid #534AB7;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 24px;
+      cursor: pointer;
+    }
+    .nota { font-size: 11px; color: #aaa; margin-bottom: 16px; }
+
+    /* ES1 — pulsanti */
+    .pulsanti { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+    button {
+      padding: 10px 22px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.1s;
+    }
+
+    .btn1 { background: #534AB7; color: #fff; }
+    .btn2 { background: #e8e8f0; color: #534AB7; }
+    .btn3 { background: #fdecea; color: #e74c3c; }
+
+    /* ES1 — hover cambia colore e sfondo */
+    .btn1:hover { background: #3b32a0; color: #fff; transform: translateY(-1px); }
+    .btn2:hover { background: #534AB7; color: #fff; transform: translateY(-1px); }
+    .btn3:hover { background: #e74c3c; color: #fff; transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Registrazione</h1>
+  <p class="sub">ES08 — Gestione eventi JavaScript</p>
+
+  <!-- ES4 — testo che si nasconde al click -->
+  <div class="info" id="msg" onclick="nascondi()">
+    clicca per nascondere questo messaggio.
+  </div>
+  <p class="nota" id="nota"></p>
+
+  <!-- ES2 — codice fiscale in maiuscolo durante la digitazione -->
+  <div class="campo">
+    <label for="cf">Codice Fiscale</label>
+    <input type="text" id="cf" placeholder="Es. LGSGO94MDOR22H"
+           oninput="this.value = this.value.toUpperCase()">
+  </div>
+
+  <!-- ES6 — password con sfondo che cambia colore -->
+  <div class="campo">
+    <label for="pw">Password</label>
+    <input type="password" id="pw" placeholder="Inserisci la password"
+           oninput="controllaPw()">
+    <div class="forza" id="testo_forza"></div>
+  </div>
+
+  <!-- ES5 — ripeti password con messaggio errore -->
+  <div class="campo">
+    <label for="pw2">Ripeti Password</label>
+    <input type="password" id="pw2" placeholder="Ripeti la password"
+           oninput="controllaRipeti()">
+    <div class="errore" id="msg_errore">Le password non coincidono.</div>
+  </div>
+
+  <!-- ES1 — pulsanti con hover -->
+  <div class="pulsanti">
+    <button class="btn1">Registrati</button>
+    <button class="btn2">Annulla</button>
+    <button class="btn3">Reset</button>
+  </div>
+</div>
+
+<script>
+
+  // ── ES3 — focus e blur: cambio sfondo del campo input ──────────────────
+  var campi = document.querySelectorAll('input');
+  for (var i = 0; i < campi.length; i++) {
+    campi[i].addEventListener('focus', function() {
+      this.classList.add('focus');
+    });
+    campi[i].addEventListener('blur', function() {
+      this.classList.remove('focus');
+    });
+  }
+
+  // ── ES4 — nasconde il testo al click ───────────────────────────────────
+  function nascondi() {
+    var el = document.getElementById('msg');
+    el.hidden = true;
+    document.getElementById('nota').textContent = '(messaggio nascosto)';
+  }
+
+  // ── ES5 — controlla se le due password coincidono ──────────────────────
+  function controllaRipeti() {
+    var val1 = document.getElementById('pw').value;
+    var val2 = document.getElementById('pw2').value;
+    var err  = document.getElementById('msg_errore');
+
+    if (val2.length > 0 && val1 !== val2) {
+      err.classList.add('visibile');
+    } else {
+      err.classList.remove('visibile');
+    }
+  }
+
+  // ── ES6 — cambia sfondo password in base ai requisiti ──────────────────
+  // DEBOLE  → meno di 6 caratteri
+  // MEDIA   → 6+ caratteri ma manca maiuscola o numero
+  // FORTE   → 8+ caratteri, almeno una maiuscola e un numero
+  function controllaPw() {
+    var campo = document.getElementById('pw');
+    var label = document.getElementById('testo_forza');
+    var val   = campo.value;
+
+    campo.classList.remove('debole', 'media', 'forte');
+    label.classList.remove('debole', 'media', 'forte');
+
+    if (val.length === 0) {
+      label.textContent = '';
+      return;
+    }
+
+    var haMaiuscola = /[A-Z]/.test(val);
+    var haNumero    = /[0-9]/.test(val);
+
+    if (val.length >= 8 && haMaiuscola && haNumero) {
+      campo.classList.add('forte');
+      label.classList.add('forte');
+      label.textContent = 'password forte';
+    } else if (val.length >= 6) {
+      campo.classList.add('media');
+      label.classList.add('media');
+      label.textContent = 'password media';
+    } else {
+      campo.classList.add('debole');
+      label.classList.add('debole');
+      label.textContent = 'password debole';
+    }
+
+    controllaRipeti();
+  }
+
+</script>
+</body>
+</html>
